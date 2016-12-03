@@ -18,6 +18,7 @@ int main() {
 
 	int choice = 0;
 	TicketMaster tm;
+	string rest;
 	
 	do {
 		while (true) {
@@ -26,6 +27,7 @@ int main() {
 		  cout << " 2: Request Tickets " << endl;
 		  cout << " 3: Print Sales Report" << endl;
 		  cout << " 4: Exit" << endl;
+		  cout << endl << " 5: Reset Everything" << endl;
 		  cin >> choice;
 		  if (choice > 0 && choice <= 5)
 		    break;
@@ -43,7 +45,12 @@ int main() {
 		  break;
 		case 4: cout << "Goodbye!\n";
 		  break;
-		case 5: tm.clearSeats();
+		case 5:
+		  cout << "Do you really want to reset everything? (Y/N)" << endl;
+		  cin >> rest;
+		  if ( rest[0] == 'Y' || rest[0] == 'y') {
+		    tm.clearSeats();
+		  }
 		}
 	} while (choice != 4);
 
