@@ -70,8 +70,8 @@ void requestSelected(TicketMaster &tm) {
     if (reqRow > 0 && reqRow <= Max_Rows) {
       reqRow--; // our rows are allocated from 0 -> Max_Rows-1
       if (reqSeats > tm.getMaxSeats(reqRow)){
-	cout << "The row you are requesting does not have enough available seats in a block." << endl;
-	cout << "Please try again" << endl;
+	cout << "The row you are requesting does not have enough available "<< endl;
+	cout << "seats in a block. Please try again" << endl;
       } else {
 	break;
       }
@@ -81,6 +81,7 @@ void requestSelected(TicketMaster &tm) {
 
   // Get the Requested Starting Seat
   while (true) {
+    tm.printRow(reqRow);
     int first = tm.getFirstSeat(reqRow)+1;
     cout << "Which seat would you like to start with " << first <<
       " -> " << (Max_Cols - reqSeats)+1 <<")? ";

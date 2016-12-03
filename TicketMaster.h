@@ -75,6 +75,7 @@ class TicketMaster {
 
   // a func to output the current auditorium. 
   void displaySeats();
+  void printRow(int);
 
   void clearSeats();
 
@@ -185,7 +186,7 @@ void TicketMaster::displaySeats() {
   int numX = Max_Cols / 10; // work out the number of rows
   int remX = Max_Cols % 10; // work out the left over
   cout << "   ";
-  for (int c = 0; c < numX; c++){
+  for (int col = 0; col < numX; col++){
     for (int i = 1; i < 10; i++){
       cout << i;
     };
@@ -196,16 +197,20 @@ void TicketMaster::displaySeats() {
   };
   cout << endl;
   // print the rows.
-  for (int r = 0; r < Max_Rows; r++){
-    cout << setw(2)  << (r+1) << " ";
-    for (int c = 0; c < Max_Cols; c++){
-      cout << getSeat(r,c);
-    };
-    cout << endl;
+  for (int row = 0; row < Max_Rows; row++){
+    printRow(row);
   };
   cout << endl;
 }
 
+void TicketMaster::printRow(int row){
+    cout << setw(2)  << (row+1) << " ";
+    for (int col = 0; col < Max_Cols; col++){
+      cout << getSeat(row,col);
+    };
+    cout << endl;
+  
+}
 
 int TicketMaster::getMaxSeats(int row){
   int max_seats =0, num_seats = 0;
