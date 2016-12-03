@@ -1,3 +1,8 @@
+// A semester project for SDEV-240 Fall 2016
+// Authors:
+//  Jeremy DeHay
+//  Demostenes BalbuenaGarcia
+//  Stephen Smoogen
 
 #ifndef TICKETMASTER_H
 #define TICKETMASTER_H
