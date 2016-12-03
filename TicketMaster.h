@@ -14,12 +14,16 @@ const int Max_Cols = 30;
 const char SeatAvail = '#';
 const char SeatTaken = '*';
 
+
+// A class which the menu program interacts with to instantiate an auditorium. 
 class TicketMaster {
  private:
 
   int seatsSold;
   float totalMoney;
 
+  // Our auditorium is an array of SeatStructures. Each Seat stores if
+  // the seat is sold and what price would be at that seat.
   struct SeatStructures {
     char  seatstatus;
     float seatprice;
@@ -35,7 +39,7 @@ class TicketMaster {
   ~TicketMaster();
   
   // a getter for seat availability 
-  bool isSeatSold(int row, int col){
+  bool isSeatAvail(int row, int col){
     if (auditorium[row][col].seatstatus == SeatAvail){
       return true;
     }
@@ -62,18 +66,28 @@ class TicketMaster {
   char getSeat(int row, int col){
     return auditorium[row][col].seatstatus;
   }
-  
+
+  // a func to tell us how many seats are in a particular row.
+  int getMaxSeats(int row);
+
+  // a func to tell us which is the first available seat in a row.
+  int getFirstSeat(int row);
+
+  // a func to output the current auditorium. 
   void displaySeats();
 
   void clearSeats();
 
-  int requestTickets(int, int, int);
+  bool requestTickets(int, int, int);
   
   string purchaseTickets(int, int, int, float);
   
-  void salesReport() {
-    cout << "salesReport\n";
-    cout << "Seats sold: " << getSeatsSold() << " Total Money: " << getTotalMoney() << endl;
+  void getSimpleSalesReport() {
+    cout << endl << "=== Simple Sales Report ===" << endl;; 
+    cout << "The auditorium has " << Max_Cols * Max_Rows << " seats." << endl;
+    cout << "Seats sold: " << getSeatsSold() << endl;
+    cout << "Total Money: " << getTotalMoney() << endl;
+    cout << "===========================" << endl << endl;
   }
 
   int getSeatsSold() {
@@ -144,6 +158,18 @@ TicketMaster::TicketMaster() {
     }
   }
   SeatsFile.close();
+  // Ok now that we have read in the file we need to reset the amount
+  // of seats we have sold and the amount of Money that has been taken.
+  seatsSold = 0;
+  totalMoney = 0;
+  for (int row = 0; row <= Max_Rows; row++){
+    for (int col = 0 ; col <= Max_Cols; col++){
+      if (auditorium[row][col].seatstatus == SeatTaken){
+	totalMoney += auditorium[row][col].seatprice;
+	seatsSold++;
+      }
+    }
+  }
 }
 
 // Bounds checking
@@ -180,15 +206,49 @@ void TicketMaster::displaySeats() {
   cout << endl;
 }
 
-// Check if tickets are available
-int TicketMaster::requestTickets(int seats, int row, int start) {
 
-  for (int i = start; i < start + seats; i++) {
-    if (!isSeatSold(row, i)) {
-      return 1;
+int TicketMaster::getMaxSeats(int row){
+  int max_seats =0, num_seats = 0;
+  // loop through the seats in a row. if the seat is available count
+  // the num seats in a group. If the seat is sold check to see if the
+  // seats avail in that block is more than our previous max. If it is
+  // set the max to the num and reset the num until we find a new
+  // block
+  for (int col = 0; col < Max_Cols ; col++){
+    if (isSeatAvail(row,col)){
+      num_seats++;
+    } else {
+      num_seats = 0;
+    }
+    // so we reset max_seats a lot and could probably be more
+    // efficient here.
+    if (num_seats > max_seats){
+      max_seats = num_seats;
+    };
+  }
+  return max_seats;
+}
+
+int TicketMaster::getFirstSeat(int row){
+  int first = 0;
+  for (int col = 0; col < Max_Cols; col++){
+    if (isSeatAvail(row,col)){
+      first = col;
+      break;
     }
   }
-return 0;
+  return first;
+  
+}
+
+// Check if tickets are available
+bool TicketMaster::requestTickets(int seats, int row, int start) {
+  for (int i = start; i < start + seats; i++) {
+    if (!isSeatAvail(row, i)) {
+      return false;
+    }
+  }
+return true;
 }
 
 // purchase tickets

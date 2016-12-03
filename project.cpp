@@ -14,29 +14,32 @@ int main() {
 
 	int choice = 0;
 	TicketMaster tm;
-
+	
 	do {
 		while (true) {
-			cout << "Please select an option:\n1: Display Seating Chart\n2: Request Tickets\n3: Print Sales Report\n4: Exit\n   ";
-			cin >> choice;
-
-			if (choice > 0 && choice <= 5)
-				break;
-			else 
-				cout << "Invalid entry. Please try again.\n\n";
+		  cout << "Please select an option:" << endl;
+		  cout << " 1: Display Seating Chart " << endl;
+		  cout << " 2: Request Tickets " << endl;
+		  cout << " 3: Print Sales Report" << endl;
+		  cout << " 4: Exit" << endl;
+		  cin >> choice;
+		  if (choice > 0 && choice <= 5)
+		    break;
+		  else 
+		    cout << "Invalid entry. Please try again.\n\n";
 		}
 
 	
 		switch (choice) {
-			case 1: tm.displaySeats();
-							break;
-			case 2: requestSelected(tm);
-							break;
-			case 3: tm.salesReport();
-							break;
-			case 4: cout << "Goodbye!\n";
-							break;
-			case 5: tm.clearSeats();
+		case 1: tm.displaySeats();
+		  break;
+		case 2: requestSelected(tm);
+		  break;
+		case 3: tm.getSimpleSalesReport();
+		  break;
+		case 4: cout << "Goodbye!\n";
+		  break;
+		case 5: tm.clearSeats();
 		}
 	} while (choice != 4);
 
@@ -48,9 +51,9 @@ void requestSelected(TicketMaster &tm) {
 
   // Get the Requested number of seats
   while (true) {
-	cout << "How many seats would you like (30 max)? ";
+    cout << "How many seats would you like (" << Max_Cols << " max)? ";
     cin >> reqSeats;
-    if (reqSeats > 0 && reqSeats <= 30)
+    if (reqSeats > 0 && reqSeats <= Max_Cols)
       break;
     else
        cout << "Invalid number, please try again.\n";
@@ -58,44 +61,43 @@ void requestSelected(TicketMaster &tm) {
 
   // Get the Requested Row
   while (true) {
-  cout << "Which Row would you like (1-15)? ";
+    cout << "Which Row would you like (1-" << Max_Rows << ")? ";
     cin >> reqRow;
-    if (reqRow > 0 && reqRow <= 15)
-      break;
-    else
+    if (reqRow > 0 && reqRow <= Max_Rows) {
+      reqRow--; // our rows are allocated from 0 -> Max_Rows-1
+      if (reqSeats > tm.getMaxSeats(reqRow)){
+	cout << "The row you are requesting does not have enough available seats in a block." << endl;
+	cout << "Please try again" << endl;
+      } else {
+	break;
+      }
+    } else
        cout << "Invalid number, please try again.\n";
   }
 
   // Get the Requested Starting Seat
   while (true) {
-  	bool good = false, enough = false;
-	  cout << "Which seat would you like to start with (1-" << 31 - reqSeats <<")? ";
-	    cin >> reqStart;
-    if (reqStart > 0 && reqStart <= 30)
-      good = true;
+    int first = tm.getFirstSeat(reqRow)+1;
+    cout << "Which seat would you like to start with " << first <<
+      " -> " << (Max_Cols - reqSeats)+1 <<")? ";
+    cin >> reqStart;
+    if (reqStart >= first && reqStart <= Max_Cols)
+      break;
     else
        cout << "Invalid number, please try again.\n";
-    if (reqSeats + reqStart > 31){
-    	cout << "Not enough seats in a row for for you to have " <<
-    		reqSeats << " seats starting at " << reqStart << ". Please " <<
-    		"select a lower starting seat number.\n";
-    } else {
-    		enough = true;
-    }
-    if (good && enough)
-    	break;
   }
 
-  reqRow--;
   reqStart--;
 
-  switch (tm.requestTickets(reqSeats, reqRow, reqStart)) {
-  	case 0: purchase(tm, reqSeats, reqRow, reqStart);
-  		break;
-  	case 1: cout << "One or more of the requested seats is unavailable. Please view the available seats and try again.\n";
-  		break;
+  // we use an int here because switching on a boolean isn't allowed
+  if (tm.requestTickets(reqSeats, reqRow, reqStart)){
+    purchase(tm, reqSeats, reqRow, reqStart);
+  } else {
+    cout << "One or more of the requested seats is unavailable. Please view the available " << endl;
+    cout << "seats and try again.\n";
   }
 }
+
 
 void purchase(TicketMaster &tm, int seats, int row, int start) {
 	float price = tm.getSeatPrice(row), total = price * seats;
