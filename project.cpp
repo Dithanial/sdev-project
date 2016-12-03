@@ -1,7 +1,11 @@
-
-
+// A semester project for SDEV-240 Fall 2016
+// Authors:
+//  Jeremy DeHay
+//  Demostenes BalbuenaGarcia
+//  Stephen Smoogen
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include "TicketMaster.h"
 
 using namespace std;
