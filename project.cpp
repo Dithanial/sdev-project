@@ -88,25 +88,24 @@ void requestSelected(TicketMaster &tm) {
 
   // Get the Requested Starting Seat
   while (true) {
+    tm.printNum();
     tm.printRow(reqRow);
     int first = tm.getFirstSeat(reqRow)+1;
     cout << "Which seat would you like to start with " << first <<
       " -> " << (Max_Cols - reqSeats)+1 <<")? ";
     cin >> reqStart;
-    if (reqStart >= first && reqStart <= Max_Cols)
-      break;
-    else
+    if (reqStart < first || reqStart > Max_Cols)
        cout << "Invalid number, please try again.\n";
-  }
-
-  reqStart--;
-
-  // we use an int here because switching on a boolean isn't allowed
-  if (tm.requestTickets(reqSeats, reqRow, reqStart)){
-    purchase(tm, reqSeats, reqRow, reqStart);
-  } else {
-    cout << "One or more of the requested seats is unavailable. Please view the available " << endl;
-    cout << "seats and try again.\n";
+    else {
+      reqStart--;
+      if (tm.requestTickets(reqSeats, reqRow, reqStart)){
+	purchase(tm, reqSeats, reqRow, reqStart);
+	return;
+      } else {
+	cout << "One or more of the requested seats is unavailable. " << endl;
+	cout << "Please view the available seats and try again.\n";
+      }
+    }
   }
 }
 
@@ -115,8 +114,8 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 	float price = tm.getSeatPrice(row), total = price * seats;
 	char buy = ' ';
 
-	cout << "Congratulations, those seats are available! You have requested " <<
-		seats << " seats. These seats are $" << fixed << setprecision(2)  << price << " each.\nThis brings your total to $" << total << ". Would you like to purchase these tickets? (Y or N) ";
+	cout << "Congratulations, those seats are available! You have requested ";
+	cout <<	seats << " seats. These seats are $" << fixed << setprecision(2)  << price << " each.\nThis brings your total to $" << total << ". Would you like to purchase these tickets? (Y or N) ";
 	while (true) {
 		cin >> buy;
 		if (buy != 'y' && buy != 'Y' && buy != 'n' && buy != 'N') {

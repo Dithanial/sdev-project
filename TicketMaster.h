@@ -75,6 +75,7 @@ class TicketMaster {
 
   // a func to output the current auditorium. 
   void displaySeats();
+  void printNum();
   void printRow(int);
 
   void clearSeats();
@@ -182,6 +183,15 @@ bool TicketMaster::insideSS(int row, int col) {
 
 // Display seating chart
 void TicketMaster::displaySeats() {
+  printNum();
+  // print the rows.
+  for (int row = 0; row < Max_Rows; row++){
+    printRow(row);
+  };
+  cout << endl;
+}
+
+void TicketMaster::printNum(){
   cout << "     Seats" << endl;
   int numX = Max_Cols / 10; // work out the number of rows
   int remX = Max_Cols % 10; // work out the left over
@@ -194,11 +204,6 @@ void TicketMaster::displaySeats() {
   }
   for (int i=1; i<=remX; i++){
     cout << i;
-  };
-  cout << endl;
-  // print the rows.
-  for (int row = 0; row < Max_Rows; row++){
-    printRow(row);
   };
   cout << endl;
 }
