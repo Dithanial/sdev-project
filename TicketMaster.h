@@ -79,9 +79,9 @@ class TicketMaster {
   int getFirstSeat(int row);
 
   // a func to output the current auditorium. 
-  void displaySeats();
-  void printNum();
-  void printRow(int);
+  string displaySeats();
+  string printNum();
+  string printRow(int);
 
   void clearSeats();
 
@@ -89,12 +89,14 @@ class TicketMaster {
   
   string purchaseTickets(int, int, int, float);
   
-  void getSimpleSalesReport() {
-    cout << endl << "=== Simple Sales Report ===" << endl;; 
-    cout << "The auditorium has " << Max_Cols * Max_Rows << " seats." << endl;
-    cout << "Seats sold: " << getSeatsSold() << endl;
-    cout << "Total Money: " << getTotalMoney() << endl;
-    cout << "===========================" << endl << endl;
+  string getSimpleSalesReport() {
+    string BuildMyReport;
+    BuildMyReport += "\n=== Simple Sales Report ===\n";
+    BuildMyReport += "The auditorium has " + to_string((Max_Cols * Max_Rows)) +" seats.";
+    BuildMyReport += "\nSeats sold: " + to_string(getSeatsSold());
+    BuildMyReport += "\nTotal Money: " + to_string(getTotalMoney());
+    BuildMyReport += "\n===========================\n\n";
+    return BuildMyReport;
   }
 
   int getSeatsSold() {
@@ -187,39 +189,44 @@ bool TicketMaster::insideSS(int row, int col) {
 }
 
 // Display seating chart
-void TicketMaster::displaySeats() {
-  printNum();
+string TicketMaster::displaySeats() {
+  string myString = "";
+  myString += printNum();
   // print the rows.
   for (int row = 0; row < Max_Rows; row++){
-    printRow(row);
+    myString += printRow(row);
   };
-  cout << endl;
+  myString += "\n";
+  return myString;
 }
 
-void TicketMaster::printNum(){
-  cout << "     Seats" << endl;
+string TicketMaster::printNum(){
+  stringstream mySStream;
+  mySStream << "     Seats\n";
   int numX = Max_Cols / 10; // work out the number of rows
   int remX = Max_Cols % 10; // work out the left over
-  cout << "   ";
+  mySStream << "   ";
   for (int col = 0; col < numX; col++){
     for (int i = 1; i < 10; i++){
-      cout << i;
+      mySStream << i;
     };
-    cout << "0";
+    mySStream << "0";
   }
   for (int i=1; i<=remX; i++){
-    cout << i;
+    mySStream << i;
   };
-  cout << endl;
+  mySStream << "\n";
+  return mySStream.str();
 }
 
-void TicketMaster::printRow(int row){
-    cout << setw(2)  << (row+1) << " ";
-    for (int col = 0; col < Max_Cols; col++){
-      cout << getSeat(row,col);
-    };
-    cout << endl;
-  
+string TicketMaster::printRow(int row){
+  stringstream mySStream;
+  mySStream << setw(2)  << (row+1) << " ";
+  for (int col = 0; col < Max_Cols; col++){
+    mySStream << getSeat(row,col);
+  };
+  mySStream << "\n";
+  return mySStream.str();
 }
 
 int TicketMaster::getMaxSeats(int row){

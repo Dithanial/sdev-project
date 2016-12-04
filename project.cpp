@@ -13,6 +13,8 @@ using namespace std;
 // Prototypes
 void requestSelected(TicketMaster&);
 void purchase(TicketMaster&, int, int, int);
+void simpleReport(TicketMaster&);
+void mapAuditorium(TicketMaster&);
 
 int main() {
 
@@ -37,11 +39,11 @@ int main() {
 
 	
 		switch (choice) {
-		case 1: tm.displaySeats();
+		case 1: mapAuditorium(tm);
 		  break;
 		case 2: requestSelected(tm);
 		  break;
-		case 3: tm.getSimpleSalesReport();
+		case 3: simpleReport(tm);
 		  break;
 		case 4: cout << "Goodbye!\n";
 		  break;
@@ -88,8 +90,8 @@ void requestSelected(TicketMaster &tm) {
 
   // Get the Requested Starting Seat
   while (true) {
-    tm.printNum();
-    tm.printRow(reqRow);
+    cout << tm.printNum();
+    cout << tm.printRow(reqRow);
     int first = tm.getFirstSeat(reqRow)+1;
     cout << "Which seat would you like to start with " << first <<
       " -> " << (Max_Cols - reqSeats)+1 <<")? ";
@@ -130,4 +132,12 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 		}
 	}
 	cout << "Seats sold: " << tm.getSeatsSold() << " Total Money: " << tm.getTotalMoney() << endl;
+}
+
+void simpleReport(TicketMaster &tm){
+  cout << tm.getSimpleSalesReport(); // return a string
+}
+
+void mapAuditorium(TicketMaster &tm){
+  cout << tm.displaySeats(); // returned a string.
 }

@@ -33,7 +33,7 @@ with additional testing.
      report, and exit the program [implemented]
 4. Display seats a TicketManager function should be called that
      creates and returns a string which is then displayed by the
-     client program. [incorrect]
+     client program. [implemented]
 5. Request tickets. Client program will pull in data from the user. It
      will then pass this to the class function to order the seats.
      A string is returned with
@@ -41,10 +41,12 @@ with additional testing.
        the price per seat
        total price
      Client program then prints the text
+     [implemented]
 6. Purchase tickets. Client program asks if the person wants to pay
      for it. The module from the TM class then accepts the money,
      checks that the money is correct, marks the seat as sold, and
      creates and returns a string with the data for the parts listed.
+     [implemented]
 7. Sales report, a TicketManager report module should be called. This
      module must create and return a string holding a report that
      tells how many seats have been sold, how many are still
