@@ -17,8 +17,7 @@ void simpleReport(TicketMaster&);
 void mapAuditorium(TicketMaster&);
 
 int main() {
-
-	int choice = 0;
+  	int choice = 0;
 	TicketMaster tm;
 	string rest;
 	
@@ -116,8 +115,8 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 	float price = tm.getSeatPrice(row), total = price * seats;
 	char buy = ' ';
 
-	cout << "Congratulations, those seats are available! You have requested ";
-	cout <<	seats << " seats. These seats are $" << fixed << setprecision(2)  << price << " each.\nThis brings your total to $" << total << ". Would you like to purchase these tickets? (Y or N) ";
+	cout << "Congratulations, those seats are available! You have requested " << seats << " seats.\n"
+	cout "These seats are $" << fixed << setprecision(2)  << price << " each.\nThis brings your total to $" << total << ".\n Would you like to purchase these tickets? (Y or N) ";
 	while (true) {
 		cin >> buy;
 		if (buy != 'y' && buy != 'Y' && buy != 'n' && buy != 'N') {

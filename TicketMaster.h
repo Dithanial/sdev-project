@@ -39,6 +39,17 @@ class TicketMaster {
   };
   SeatStructures auditorium[Max_Rows][Max_Cols];
 
+  string int2String(int val){
+    stringstream temp;//create a stringstream
+    temp << val;//add number to the stream
+   return temp.str();
+  }
+  string float2String(float val){
+    stringstream temp;//create a stringstream
+    temp << val;//add number to the stream
+   return temp.str();
+  }
+
  public:
   TicketMaster();
   ~TicketMaster();
@@ -92,9 +103,9 @@ class TicketMaster {
   string getSimpleSalesReport() {
     string BuildMyReport;
     BuildMyReport += "\n=== Simple Sales Report ===\n";
-    BuildMyReport += "The auditorium has " + to_string((Max_Cols * Max_Rows)) +" seats.";
-    BuildMyReport += "\nSeats sold: " + to_string(getSeatsSold());
-    BuildMyReport += "\nTotal Money: " + to_string(getTotalMoney());
+    BuildMyReport += "The auditorium has " + int2String((Max_Cols * Max_Rows)) +" seats.";
+    BuildMyReport += "\nSeats sold: " + int2String(getSeatsSold());
+    BuildMyReport += "\nTotal Money: " + float2String(getTotalMoney());
     BuildMyReport += "\n===========================\n\n";
     return BuildMyReport;
   }
