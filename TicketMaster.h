@@ -42,16 +42,16 @@ class TicketMaster {
   };
   SeatStructures auditorium[Max_Rows][Max_Cols];
 
-  string int2String(int val){
-    stringstream temp;//create a stringstream
-    temp << val;//add number to the stream
-   return temp.str();
-  }
-  string float2String(float val){
-    stringstream temp;//create a stringstream
-    temp << val;//add number to the stream
-   return temp.str();
-  }
+  /* string int2String(int val){ */
+  /*   stringstream temp;//create a stringstream */
+  /*   temp << val;//add number to the stream */
+  /*  return temp.str(); */
+  /* } */
+  /* string float2String(float val){ */
+  /*   stringstream temp;//create a stringstream */
+  /*   temp << val;//add number to the stream */
+  /*  return temp.str(); */
+  /* } */
 
  public:
   TicketMaster();
