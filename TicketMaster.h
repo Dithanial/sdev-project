@@ -24,8 +24,8 @@ const char SeatTaken = '*';
 class TicketMaster {
  private:
 
-  int seatsSold;
-  float totalMoney;
+  int seatsSold=0;
+  float totalMoney=0;
 
   // Our auditorium is an array of SeatStructures. Each Seat stores if
   // the seat is sold and what price would be at that seat.
@@ -100,14 +100,17 @@ class TicketMaster {
   
   string purchaseTickets(int, int, int, float);
   
-  string getSimpleSalesReport() {
-    string BuildMyReport;
-    BuildMyReport += "\n=== Simple Sales Report ===\n";
-    BuildMyReport += "The auditorium has " + int2String((Max_Cols * Max_Rows)) +" seats.";
-    BuildMyReport += "\nSeats sold: " + int2String(getSeatsSold());
-    BuildMyReport += "\nTotal Money: " + float2String(getTotalMoney());
-    BuildMyReport += "\n===========================\n\n";
-    return BuildMyReport;
+  string getSalesReport() {
+    stringstream mySStream;
+    int seatsLeft; //variable declaration
+    seatsLeft = (Max_Rows * Max_Cols - getSeatsSold());// store in the seatsLeft variable the empty seats
+
+    //Print report 
+    mySStream << "\n\t\t\t   Sales Report";
+    mySStream << "\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n   ";
+    mySStream << "Seats sold: " << getSeatsSold() << "      Total Money: $" << getTotalMoney() << "\t SeatsLeft:  " << seatsLeft << "\n";
+    mySStream << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n:   ";
+    return mySStream.str();
   }
 
   int getSeatsSold() {

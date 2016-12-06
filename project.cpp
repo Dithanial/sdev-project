@@ -3,21 +3,25 @@
 //  Jeremy DeHay
 //  Demostenes BalbuenaGarcia
 //  Stephen Smoogen
+#ifdef _WIN32
+#include "stdafx.h"
+#endif
+#include "TicketMaster.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include "TicketMaster.h"
 
 using namespace std;
 
 // Prototypes
 void requestSelected(TicketMaster&);
 void purchase(TicketMaster&, int, int, int);
-void simpleReport(TicketMaster&);
+void salesReport(TicketMaster&);
 void mapAuditorium(TicketMaster&);
 
 int main() {
-  	int choice = 0;
+
+	int choice = 0;
 	TicketMaster tm;
 	string rest;
 	
@@ -36,13 +40,13 @@ int main() {
 		    cout << "Invalid entry. Please try again.\n\n";
 		}
 
-	
+
 		switch (choice) {
 		case 1: mapAuditorium(tm);
 		  break;
 		case 2: requestSelected(tm);
 		  break;
-		case 3: simpleReport(tm);
+		case 3: salesReport(tm);
 		  break;
 		case 4: cout << "Goodbye!\n";
 		  break;
@@ -115,8 +119,9 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 	float price = tm.getSeatPrice(row), total = price * seats;
 	char buy = ' ';
 
-	cout << "Congratulations, those seats are available! You have requested " << seats << " seats.\n"
-	cout "These seats are $" << fixed << setprecision(2)  << price << " each.\nThis brings your total to $" << total << ".\n Would you like to purchase these tickets? (Y or N) ";
+	cout << "Congratulations, those seats are available! You have requested " << seats << " seats.\n";
+	cout << "These seats are $" << fixed << setprecision(2)  << price << " each.\nThis brings your total to $" << total << ".\n";
+	cout <<"Would you like to purchase these tickets? (Y or N) ";
 	while (true) {
 		cin >> buy;
 		if (buy != 'y' && buy != 'Y' && buy != 'n' && buy != 'N') {
@@ -133,8 +138,8 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 	cout << "Seats sold: " << tm.getSeatsSold() << " Total Money: " << tm.getTotalMoney() << endl;
 }
 
-void simpleReport(TicketMaster &tm){
-  cout << tm.getSimpleSalesReport(); // return a string
+void salesReport(TicketMaster &tm){
+  cout << tm.getSalesReport(); // return a string
 }
 
 void mapAuditorium(TicketMaster &tm){
