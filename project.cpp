@@ -20,46 +20,46 @@ void salesReport(TicketMaster&);
 void mapAuditorium(TicketMaster&);
 
 int main() {
-
-	int choice = 0;
-	TicketMaster tm;
-	string rest;
+  int choice = 0;
+  TicketMaster tm;
+  string rest;
 	
-	do {
-		while (true) {
-		  cout << "Please select an option:" << endl;
-		  cout << " 1: Display Seating Chart " << endl;
-		  cout << " 2: Request Tickets " << endl;
-		  cout << " 3: Print Sales Report" << endl;
-		  cout << " 4: Exit" << endl;
-		  cout << endl << " 5: Reset Everything" << endl;
-		  cin >> choice;
-		  if (choice > 0 && choice <= 5)
-		    break;
-		  else 
-		    cout << "Invalid entry. Please try again.\n\n";
-		}
+  do {
+    // loop through the menu until a valid choice.
+    while (true) {
+      cout << "Please select an option:" << endl;
+      cout << " 1: Display Seating Chart " << endl;
+      cout << " 2: Request Tickets " << endl;
+      cout << " 3: Print Sales Report" << endl;
+      cout << " 4: Exit" << endl;
+      cout << endl << " 5: Reset Everything" << endl;
+      cin >> choice;
+      if (choice > 0 && choice <= 5)
+	break;
+      else 
+	cout << "Invalid entry. Please try again.\n\n";
+    }
 
-
-		switch (choice) {
-		case 1: mapAuditorium(tm);
-		  break;
-		case 2: requestSelected(tm);
-		  break;
-		case 3: salesReport(tm);
-		  break;
-		case 4: cout << "Goodbye!\n";
-		  break;
-		case 5:
-		  cout << "Do you really want to reset everything? (Y/N)" << endl;
-		  cin >> rest;
-		  if ( rest[0] == 'Y' || rest[0] == 'y') {
-		    tm.clearSeats();
-		  }
-		}
-	} while (choice != 4);
-
-	return 0;
+    // use the valid choice for a menu
+    switch (choice) {
+    case 1: mapAuditorium(tm);
+      break;
+    case 2: requestSelected(tm);
+      break;
+    case 3: salesReport(tm);
+      break;
+    case 4: cout << "Goodbye!\n";
+      break;
+    case 5:
+      cout << "Do you really want to reset everything? (Y/N)" << endl;
+      cin >> rest;
+      if ( rest[0] == 'Y' || rest[0] == 'y') {
+	tm.clearSeats();
+      }
+    }
+  } while (choice != 4);
+  
+  return 0;
 }
 
 void requestSelected(TicketMaster &tm) {
@@ -139,7 +139,7 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 }
 
 void salesReport(TicketMaster &tm){
-  cout << tm.getSalesReport(); // return a string
+  cout << tm.salesReport(); // return a string
 }
 
 void mapAuditorium(TicketMaster &tm){

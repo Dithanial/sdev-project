@@ -19,7 +19,10 @@ const int Max_Cols = 30;
 const char SeatAvail = '#';
 const char SeatTaken = '*';
 
-
+const string PRICEFILE="SeatPrices.dat";
+const string SEATSFILE="SeatAvailability.dat";
+const string MONEYFILE="moneyReport.txt";
+  
 // A class which the menu program interacts with to instantiate an auditorium. 
 class TicketMaster {
  private:
@@ -100,7 +103,7 @@ class TicketMaster {
   
   string purchaseTickets(int, int, int, float);
   
-  string getSalesReport() {
+  string salesReport() {
     stringstream mySStream;
     int seatsLeft; //variable declaration
     seatsLeft = (Max_Rows * Max_Cols - getSeatsSold());// store in the seatsLeft variable the empty seats
@@ -109,7 +112,7 @@ class TicketMaster {
     mySStream << "\n\t\t\t   Sales Report";
     mySStream << "\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n   ";
     mySStream << "Seats sold: " << getSeatsSold() << "      Total Money: $" << getTotalMoney() << "\t SeatsLeft:  " << seatsLeft << "\n";
-    mySStream << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n:   ";
+    mySStream << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n";
     return mySStream.str();
   }
 
@@ -150,7 +153,7 @@ TicketMaster::TicketMaster() {
   string tempData ="";
   int row = 0;
   int col = 0;
-  PriceFile.open("SeatPrices.dat");
+  PriceFile.open(PRICEFILE);
   if (!PriceFile)
     cout << "Not able to read price file";
   else {
@@ -165,7 +168,7 @@ TicketMaster::TicketMaster() {
 
   // Set up the taken seats in auditorium
   row = 0;
-  SeatsFile.open("SeatAvailability.dat");
+  SeatsFile.open(SEATSFILE);
   if (!SeatsFile)
     cout << "Not able to read available seats file";
   else {
@@ -358,8 +361,8 @@ string TicketMaster::purchaseTickets(int seats, int row, int start, float price)
 TicketMaster::~TicketMaster() {
   string tempData = "";
   ofstream SeatsFile;
-
-  SeatsFile.open("SeatAvailability.dat");
+  ofstream moneyFile;
+  SeatsFile.open(SEATSFILE);
   if (!SeatsFile)
     cout << "Not able to read available seats file.\n";
   else {
@@ -373,6 +376,14 @@ TicketMaster::~TicketMaster() {
     }
   }
   SeatsFile.close();
+
+  moneyFile.open(MONEYFILE);
+  if (!moneyFile)
+    cout << "Not able to read price file";
+  else {
+    moneyFile << salesReport() ;
+  }
+  moneyFile.close();
 }
 
 void TicketMaster::clearSeats() {
