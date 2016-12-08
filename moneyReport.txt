@@ -1,7 +1,6 @@
 
 			   Sales Report
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-   Seats sold: 174      Total Money: $4412.5	 SeatsLeft:  276
+   Seats sold: 188      Total Money: $4622.5	 SeatsLeft:  262
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-:   
