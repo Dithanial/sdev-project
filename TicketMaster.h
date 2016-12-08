@@ -110,9 +110,9 @@ class TicketMaster {
 
     //Print report 
     mySStream << "\n\t\t\t   Sales Report";
-    mySStream << "\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n   ";
-    mySStream << "Seats sold: " << getSeatsSold() << "      Total Money: $" << getTotalMoney() << "\t SeatsLeft:  " << seatsLeft << "\n";
-    mySStream << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n";
+    mySStream << "\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n   ";
+    mySStream << "Seats Sold: " << getSeatsSold() << "      Money Earned: $" << getTotalMoney() << "\t Seats Remaining:  " << seatsLeft << "\n";
+    mySStream << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n";
     return mySStream.str();
   }
 

@@ -101,6 +101,9 @@ void requestSelected(TicketMaster &tm) {
     cin >> reqStart;
     if (reqStart < first || reqStart > Max_Cols)
        cout << "Invalid number, please try again.\n";
+    else if (reqStart + reqSeats - 1 > Max_Cols) {
+      cout << "Not enough seats in a row for " << reqSeats << " seats starting at row " << reqStart << ".\nPlease chose a different starting seat.\n";
+    }
     else {
       reqStart--;
       if (tm.requestTickets(reqSeats, reqRow, reqStart)){
@@ -135,7 +138,7 @@ void purchase(TicketMaster &tm, int seats, int row, int start) {
 			break;
 		}
 	}
-	cout << "Seats sold: " << tm.getSeatsSold() << " Total Money: " << tm.getTotalMoney() << endl;
+	// cout << "Seats sold: " << tm.getSeatsSold() << " Total Money: " << tm.getTotalMoney() << endl;
 }
 
 void salesReport(TicketMaster &tm){
