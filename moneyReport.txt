@@ -1,6 +1,6 @@
 
-			   Sales Report
+			     Sales Report
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-   Seats Sold: 196      Money Earned: $4737.5	 Seats Remaining:  254
+   Seats Sold: 0	Money Earned: $0.00	 Seats Remaining:  450
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 

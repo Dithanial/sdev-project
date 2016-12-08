@@ -97,23 +97,37 @@ class TicketMaster {
   string printNum();
   string printRow(int);
 
-  void clearSeats();
+  // void clearSeats();
 
   bool requestTickets(int, int, int);
   
   string purchaseTickets(int, int, int, float);
   
   string salesReport() {
-    stringstream mySStream;
+    string returnValue;
+    stringstream mySStream, formattedSStream;
+    formattedSStream << fixed;
+    formattedSStream.precision(2);
     int seatsLeft; //variable declaration
+
+
     seatsLeft = (Max_Rows * Max_Cols - getSeatsSold());// store in the seatsLeft variable the empty seats
 
     //Print report 
-    mySStream << "\n\t\t\t   Sales Report";
+    mySStream << "\n\t\t\t     Sales Report";
     mySStream << "\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n   ";
-    mySStream << "Seats Sold: " << getSeatsSold() << "      Money Earned: $" << getTotalMoney() << "\t Seats Remaining:  " << seatsLeft << "\n";
+    mySStream << "Seats Sold: " << getSeatsSold() << "\tMoney Earned: $";
+    returnValue += mySStream.str();
+    mySStream.str("");
+
+    formattedSStream << getTotalMoney();
+    returnValue += formattedSStream.str();
+
+    mySStream << "\t Seats Remaining:  " << seatsLeft << "\n";
     mySStream << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n";
-    return mySStream.str();
+    returnValue += mySStream.str();
+
+    return returnValue;
   }
 
   int getSeatsSold() {
@@ -124,9 +138,9 @@ class TicketMaster {
     seatsSold += sold;
   }
 
-  void clearSeatsSold(){
-    seatsSold = 0;
-  }
+  // void clearSeatsSold(){
+  //   seatsSold = 0;
+  // }
 
   float getTotalMoney() {
     return totalMoney;
@@ -136,9 +150,9 @@ class TicketMaster {
     totalMoney += sold;
   }
 
-  void clearTotalMoney() {
-    totalMoney = 0.0;
-  }
+  // void clearTotalMoney() {
+  //   totalMoney = 0.0;
+  // }
 	
 };
 
@@ -386,15 +400,15 @@ TicketMaster::~TicketMaster() {
   moneyFile.close();
 }
 
-void TicketMaster::clearSeats() {
+// void TicketMaster::clearSeats() {
 
-  for (int row = 0; row < Max_Rows; row++) {
-    for (int col = 0; col < Max_Cols; col++) {
-      auditorium[row][col].seatstatus = SeatAvail;
-    }
-  }
-  clearSeatsSold();
-  clearTotalMoney();
-}
+//   for (int row = 0; row < Max_Rows; row++) {
+//     for (int col = 0; col < Max_Cols; col++) {
+//       auditorium[row][col].seatstatus = SeatAvail;
+//     }
+//   }
+//   clearSeatsSold();
+//   clearTotalMoney();
+// }
 
 #endif

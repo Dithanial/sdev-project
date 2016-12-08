@@ -32,9 +32,9 @@ int main() {
       cout << " 2: Request Tickets " << endl;
       cout << " 3: Print Sales Report" << endl;
       cout << " 4: Exit" << endl;
-      cout << endl << " 5: Reset Everything" << endl;
+    //  cout << endl << " 5: Reset Everything" << endl;
       cin >> choice;
-      if (choice > 0 && choice <= 5)
+      if (choice > 0 && choice < 5)
 	break;
       else 
 	cout << "Invalid entry. Please try again.\n\n";
@@ -48,14 +48,14 @@ int main() {
       break;
     case 3: salesReport(tm);
       break;
-    case 4: cout << "Goodbye!\n";
+    case 4: cout << "Thanks for shopping with us! Goodbye!\n\n";
       break;
-    case 5:
-      cout << "Do you really want to reset everything? (Y/N)" << endl;
-      cin >> rest;
-      if ( rest[0] == 'Y' || rest[0] == 'y') {
-	tm.clearSeats();
-      }
+ //    case 5:
+ //      cout << "Do you really want to reset everything? (Y/N)" << endl;
+ //      cin >> rest;
+ //      if ( rest[0] == 'Y' || rest[0] == 'y') {
+	// tm.clearSeats();
+ //      }
     }
   } while (choice != 4);
   
