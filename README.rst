@@ -51,7 +51,7 @@ with additional testing.
      module must create and return a string holding a report that
      tells how many seats have been sold, how many are still
      available, and how much money has been collected so far from the
-     sold seats. 
+     sold seats. [implemented]
 8  When the sales are over for a period of time and the quit menu is
      selected the program needs to be able to write the updated seat 
      availability back out to the file. The obvious place to do this
